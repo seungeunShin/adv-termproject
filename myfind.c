@@ -9,6 +9,7 @@ int dir_list(char*, char*, char*);
 char* mystrcpy(char*, char*);
 char* mystrcat(char*, char*);
 int mystrcmp(char*, char*);
+int mystrlen(char*);
 
 int main(int argc, char* argv[]){
 
@@ -23,6 +24,7 @@ int dir_list(char *path, char *option, char *option2){
 	DIR *dp;
 	int dir_err, n;
 	char filepath[255];
+	char filename[255];
 
 	if((dp=opendir(path))==NULL){
 		perror("opendir");
@@ -58,12 +60,18 @@ int dir_list(char *path, char *option, char *option2){
 			}
 			if((file.st_atime)>(buf.st_atime)){
 				if(S_ISDIR(buf.st_mode)){
-					printf("dir %s\n", dent->d_name);
+					mystrcpy(filename, dent->d_name);
+
+					write(1, filename, mystrlen(filename));
+					write(1, "\n", 2);
 					mystrcat(filepath, "/");
 					dir_list(filepath, option, option2);
 				}
 				else if(S_ISREG(buf.st_mode)){
-					printf("file %s\n", dent->d_name);
+					mystrcpy(filename, dent->d_name);
+
+					write(1, filename, mystrlen(filename));
+					write(1, "\n", 2);
 				}
 			}
 		}
@@ -75,24 +83,54 @@ int dir_list(char *path, char *option, char *option2){
 			}
 			if((file.st_ctime)>(buf.st_ctime)){
 				if(S_ISDIR(buf.st_mode)){
-					printf("dir %s\n", dent->d_name);
+					mystrcpy(filename, dent->d_name);
+
+					write(1, filename, mystrlen(filename));
+					write(1, "\n", 2);
 					mystrcat(filepath, "/");
 					dir_list(filepath, option, option2);
 				}
 				else if(S_ISREG(buf.st_mode)){
-					printf("file %s\n", dent->d_name);
+					mystrcpy(filename, dent->d_name);
+
+					write(1, filename, mystrlen(filename));
+					write(1, "\n", 2);
 				}
 			}
 		}
 
 		else if(mystrcmp(option, "-atime")==0){
+			if(option2[0]=='-'){
 
+			}
+			else if(option2[0]=='+'){
+
+			}
+			else{
+
+			}
 		}
 		else if(mystrcmp(option, "-ctime")==0){
+			if(option2[0]=='-'){
 
+			}
+			else if(option2[0]=='+'){
+
+			}
+			else{
+
+			}
 		}
 		else if(mystrcmp(option, "-mtime")==0){
+			if(option2[0]=='-'){
 
+			}
+			else if(option2[0]=='+'){
+
+			}
+			else{
+
+			}
 		}
 	}while((dent=readdir(dp))!=NULL);
 
@@ -134,4 +172,11 @@ int mystrcmp(char* first, char* second){
 	}
 
 	return result;
+}
+int mystrlen(char* buf){
+	int i=0, count=0;
+	while(buf[i++]!='\0'){
+		count++;
+	}
+	return count;
 }
