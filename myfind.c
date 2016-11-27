@@ -8,6 +8,8 @@
 int dir_list(char*, char*, char*);
 char* mystrcpy(char*, char*);
 char* mystrcat(char*, char*);
+int mystrcmp(char*, char*);
+int mystrlen(char*);
 
 int main(int argc, char* argv[]){
 
@@ -17,11 +19,12 @@ int main(int argc, char* argv[]){
 }
 int dir_list(char *path, char *option, char *option2){
 	struct stat buf;
+	struct stat file;
 	struct dirent *dent;
 	DIR *dp;
-
 	int dir_err, n;
 	char filepath[255];
+	char filename[255];
 
 	if((dp=opendir(path))==NULL){
 		perror("opendir");
@@ -36,43 +39,98 @@ int dir_list(char *path, char *option, char *option2){
 		mystrcat(filepath, "/");
 		mystrcat(filepath, dent->d_name);
 
-		if((strcmp(dent->d_name, ".")==0)||(strcmp(dent->d_name, "..")==0)){
+		if((mystrcmp(dent->d_name, ".")==0)||(mystrcmp(dent->d_name, "..")==0)){
 			continue;
 		}
 
 		dir_err=stat(filepath, &buf);
-
 		if(dir_err==-1){
 			perror("dir_err");
 			exit(1);
 		}
 
-		if(S_ISDIR(buf.st_mode)){
-			printf("dir %s\n", dent->d_name);
-			mystrcat(filepath, "/");
-			dir_list(filepath, option, option2);
-		}
-		else if(S_ISREG(buf.st_mode)){
-			printf("file %s\n", dent->d_name);
-		}
-
-		if(option=="-newer"){
+		if(mystrcmp(option, "-newer")==0){
 
 		}
-		else if(option=="-anewer"){
+		else if(mystrcmp(option, "-anewer")==0){
+			dir_err=stat(option2, &file);
+			if(dir_err==-1){
+				perror("dir_err");
+				exit(1);
+			}
+			if((file.st_atime)>(buf.st_atime)){
+				if(S_ISDIR(buf.st_mode)){
+					mystrcpy(filename, dent->d_name);
 
+					write(1, filename, mystrlen(filename));
+					write(1, "\n", 2);
+					mystrcat(filepath, "/");
+					dir_list(filepath, option, option2);
+				}
+				else if(S_ISREG(buf.st_mode)){
+					mystrcpy(filename, dent->d_name);
+
+					write(1, filename, mystrlen(filename));
+					write(1, "\n", 2);
+				}
+			}
 		}
-		else if(option=="-cnewer"){
+		else if(mystrcmp(option, "-cnewer")==0){
+			dir_err=stat(option2, &file);
+			if(dir_err==-1){
+				perror("dir_err");
+				exit(1);
+			}
+			if((file.st_ctime)>(buf.st_ctime)){
+				if(S_ISDIR(buf.st_mode)){
+					mystrcpy(filename, dent->d_name);
 
+					write(1, filename, mystrlen(filename));
+					write(1, "\n", 2);
+					mystrcat(filepath, "/");
+					dir_list(filepath, option, option2);
+				}
+				else if(S_ISREG(buf.st_mode)){
+					mystrcpy(filename, dent->d_name);
+
+					write(1, filename, mystrlen(filename));
+					write(1, "\n", 2);
+				}
+			}
 		}
-		else if(option=="-atime"){
 
+		else if(mystrcmp(option, "-atime")==0){
+			if(option2[0]=='-'){
+
+			}
+			else if(option2[0]=='+'){
+
+			}
+			else{
+
+			}
 		}
-		else if(option=="-ctime"){
+		else if(mystrcmp(option, "-ctime")==0){
+			if(option2[0]=='-'){
 
+			}
+			else if(option2[0]=='+'){
+
+			}
+			else{
+
+			}
 		}
-		else if(option=="-mtime"){
+		else if(mystrcmp(option, "-mtime")==0){
+			if(option2[0]=='-'){
 
+			}
+			else if(option2[0]=='+'){
+
+			}
+			else{
+
+			}
 		}
 	}while((dent=readdir(dp))!=NULL);
 
@@ -103,4 +161,22 @@ char* mystrcat(char* first, char* second){
 	first[i]='\0';
 
 	return first;
+}
+int mystrcmp(char* first, char* second){
+	int result=1;
+	int i=0, j=0;
+
+	while((first[i]!='\0')||(second[j]!='\0')){
+		if(first[i++]==second[j++]) result=0;
+		else result=1;
+	}
+
+	return result;
+}
+int mystrlen(char* buf){
+	int i=0, count=0;
+	while(buf[i++]!='\0'){
+		count++;
+	}
+	return count;
 }
