@@ -48,6 +48,40 @@ int dir_list(char *path, char *option, char *option2){
 			exit(1);
 		}
 
+		if(mystrcmp(option, "-empty")==0){
+			//빈 파일/디렉토리 검색
+		}
+
+		if(mystrcmp(option, "-size")==0){
+			//파일 크기와 일치하는 파일 탐색(단위로 b c k w 중 1택)
+			//b : 512바이트 블럭(기본 설정), c : 1바이트, k : KB, w : 2바이트 (워드)
+			if(option2[0]=='-'){
+				//검색조건보다 작은 파일 
+			}
+
+			if(option2[0]=='+'){
+				//검색조건보다 큰 파일 
+			}
+		}
+
+		if(mystrcmp(option, "-type")==0){
+			//지정된 타입의 파일 검색
+		}
+
+		if(mystrcmp(option, "-print")==0){
+			//검색 결과를 표준출력으로 출력
+			//option3 만들어서 option2 또는 option3에서 print 요구하면 이용 가능하게 해야하지 않나?
+			//ex) if(option2 == "-print" || option3 == "print")
+		}
+
+		if(mystrcmp(option, "-maxdepth")==0){
+			//0 아닌 정수값으로 깊이 지정하여 검색
+		}
+
+		if(mystrcmp(option, "-mindepth")==0){
+			//0 아닌 정수값으로 깊이 지정하여 그 깊이부터 하위 디렉토리 검색
+		}
+
 		if(mystrcmp(option, "-newer")==0){
 			dir_err=stat(option2, &file);
 			if(dir_err==-1){
