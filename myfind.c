@@ -388,6 +388,36 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//¿É¼Ç2 or
 				}
 			}
 		}
+
+		if(mystrcmp(option,"-name")==0)
+		{
+				
+		}
+		else if(mystrcmp(option,"-perm")==0)
+		{
+			if(dir_err==1)
+			{
+				perror("dir_err");
+				exit(1);
+			}
+
+		}
+		else if(mystrcmp(option,"-user")==0)
+		{
+			if(dir_err==1)
+			{
+				perror("dir_err");
+				exit(1);
+			}
+		}
+		else if(mystrcmp(option,"-group")==0)
+		{
+			if(dir_err==1)
+			{
+				perror("dir_err");
+				exit(1);
+			}
+		}
 	}while((dent=readdir(dp))!=NULL);
 
 	closedir(dp);
