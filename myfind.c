@@ -1,8 +1,7 @@
-#include <fcntl.h>
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <dirent.h>
 #include <time.h>
+#include <grp.h>
 
 int dir_list(char*, char*, char*);
 char* mystrcpy(char*, char*);
@@ -25,6 +24,9 @@ int dir_list(char *path, char *option, char *option2){
 	int dir_err, n;
 	char filepath[255];
 	time_t tt;
+	struct group *grp;
+	char groupname[255];
+	char filename[255];
 
 	if((dp=opendir(path))==NULL){
 		perror("opendir");
@@ -412,10 +414,19 @@ int dir_list(char *path, char *option, char *option2){
 		}
 		else if(mystrcmp(option,"-group")==0)
 		{
-			if(dir_err==1)
+			grp=getgrent(option2);
+			mystrcpy(groupname,grp->gr_name);
+
+			if((dp=opendir(groupname))==NULL)
 			{
-				perror("dir_err");
-				exit(1);
+				perror("opendir");
+			}
+			while((dent=readdir(dp)))
+			{
+				if(dent==NULL)
+					continue;
+				mystrcpy(filename,dent->d_name);
+				write(1,filename,mystrlen(filename));
 			}
 		}
 	}while((dent=readdir(dp))!=NULL);
