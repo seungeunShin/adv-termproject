@@ -13,11 +13,11 @@ int myatoi(char*);
 
 int main(int argc, char* argv[]){
 
-	dir_list(argv[1], argv[2], argv[3]);
+	dir_list(argv[1], argv[2], argv[3], argv[4]);
 
 	return 0;
 }
-int dir_list(char *path, char *option, char *option2){
+int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 or 옵션3에 print
 	struct stat buf;
 	struct stat file;
 	struct dirent *dent;
@@ -71,7 +71,7 @@ int dir_list(char *path, char *option, char *option2){
 		if(mystrcmp(option, "-print")==0){
 			//검색 결과를 표준출력으로 출력
 			//option3 만들어서 option2 또는 option3에서 print 요구하면 이용 가능하게 해야하지 않나?
-			//ex) if(option2 == "-print" || option3 == "print")
+			//ex) if(option2 == "-print" || option3 == "-print")
 		}
 
 		if(mystrcmp(option, "-maxdepth")==0){
