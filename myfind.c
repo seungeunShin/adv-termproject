@@ -2,6 +2,8 @@
 #include <dirent.h>
 #include <time.h>
 #include <grp.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 int dir_list(char*, char*, char*);
 char* mystrcpy(char*, char*);
@@ -25,8 +27,9 @@ int dir_list(char *path, char *option, char *option2){
 	char filepath[255];
 	time_t tt;
 	struct group *grp;
-	char groupname[255];
+	char name[255];
 	char filename[255];
+	uid_t uid, euid; 
 
 	if((dp=opendir(path))==NULL){
 		perror("opendir");
@@ -397,27 +400,30 @@ int dir_list(char *path, char *option, char *option2){
 		}
 		else if(mystrcmp(option,"-perm")==0)
 		{
-			if(dir_err==1)
-			{
-				perror("dir_err");
-				exit(1);
-			}
-
+				
 		}
 		else if(mystrcmp(option,"-user")==0)
 		{
-			if(dir_err==1)
+			name=cuserid(option2);
+
+			if((dp=opendir(name))==NULL)
 			{
-				perror("dir_err");
-				exit(1);
+				perror("opendir");
 			}
-		}
+			while((dent=readdir(dp)))
+			{
+				if(dent==NULL)
+					continue;
+				mystrcpy(filename,dent->d_name);
+				write(1,filename,mystrlen(filename));
+			}
+		}	
 		else if(mystrcmp(option,"-group")==0)
 		{
 			grp=getgrent(option2);
-			mystrcpy(groupname,grp->gr_name);
+			mystrcpy(name,grp->gr_name);
 
-			if((dp=opendir(groupname))==NULL)
+			if((dp=opendir(name))==NULL)
 			{
 				perror("opendir");
 			}
