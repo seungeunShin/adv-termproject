@@ -18,7 +18,7 @@ int main(int argc, char* argv[]){
 
 	return 0;
 }
-int dir_list(char *path, char *option, char *option2, char *option3){	//ø…º«2 or ø…º«3ø° print
+int dir_list(char *path, char *option, char *option2, char *option3){	//ÏòµÏÖò2 or ÏòµÏÖò3Ïóê print
 	struct stat buf;
 	struct stat file;
 	struct dirent *dent;
@@ -83,19 +83,19 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//ø…º«2 or
 			if(option2[0]=='-'){
 				while(file.st_size<buf.st_size){
 				}
-				//∞Àªˆ¡∂∞«∫∏¥Ÿ ¿€¿∫ ∆ƒ¿œ 
+				//Í≤ÄÏÉâÏ°∞Í±¥Î≥¥Îã§ ÏûëÏùÄ ÌååÏùº 
 			}
 
 			if(option2[0]=='+'){
 				while(file.st_size>buf.st_size){
 				}
-				//∞Àªˆ¡∂∞«∫∏¥Ÿ ≈´ ∆ƒ¿œ 
+				//Í≤ÄÏÉâÏ°∞Í±¥Î≥¥Îã§ ÌÅ∞ ÌååÏùº 
 			}
 
 			if(file.st_size==buf.st_size){
 			}
-			//∆ƒ¿œ ≈©±‚øÕ ¿œƒ°«œ¥¬ ∆ƒ¿œ ≈Ωªˆ(¥‹¿ß∑Œ b c k w ¡ﬂ 1≈√)
-			//b : 512πŸ¿Ã∆Æ ∫Ì∑∞(±‚∫ª º≥¡§), c : 1πŸ¿Ã∆Æ, k : KB, w : 2πŸ¿Ã∆Æ (øˆµÂ)
+			//ÌååÏùº ÌÅ¨Í∏∞ÏôÄ ÏùºÏπòÌïòÎäî ÌååÏùº ÌÉêÏÉâ(Îã®ÏúÑÎ°ú b c k w Ï§ë 1ÌÉù)
+			//b : 512Î∞îÏù¥Ìä∏ Î∏îÎü≠(Í∏∞Î≥∏ ÏÑ§Ï†ï), c : 1Î∞îÏù¥Ìä∏, k : KB, w : 2Î∞îÏù¥Ìä∏ (ÏõåÎìú)
 			//switch case?
 		}
 
@@ -107,7 +107,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//ø…º«2 or
 			}
 			if(file.st_fstype==buf.st_fstype){	//st_mode? st_fstype?
 			}
-			//¡ˆ¡§µ» ≈∏¿‘¿« ∆ƒ¿œ ∞Àªˆ
+			//ÏßÄÏ†ïÎêú ÌÉÄÏûÖÏùò ÌååÏùº Í≤ÄÏÉâ
 		}
 
 		if(mystrcmp(option2, "-print")==0 || mystrcmp(option3, "-print")==0){
@@ -126,7 +126,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//ø…º«2 or
 				write(1, filepath, mystrlen(filepath));
 				write(1, "\n", 2);
 			}
-			//∞Àªˆ ∞·∞˙∏¶ «•¡ÿ√‚∑¬¿∏∑Œ √‚∑¬
+			//Í≤ÄÏÉâ Í≤∞Í≥ºÎ•º ÌëúÏ§ÄÏ∂úÎ†•ÏúºÎ°ú Ï∂úÎ†•
 		}
 
 		if(mystrcmp(option, "-maxdepth")==0){
@@ -135,7 +135,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//ø…º«2 or
 				perror("dir_err");
 				exit(1);
 			}
-			//0 æ∆¥— ¡§ºˆ∞™¿∏∑Œ ±Ì¿Ã ¡ˆ¡§«œø© ∞Àªˆ
+			//0 ÏïÑÎãå Ï†ïÏàòÍ∞íÏúºÎ°ú ÍπäÏù¥ ÏßÄÏ†ïÌïòÏó¨ Í≤ÄÏÉâ
 		}
 
 		if(mystrcmp(option, "-mindepth")==0){
@@ -144,7 +144,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//ø…º«2 or
 				perror("dir_err");
 				exit(1);
 			}
-			//0 æ∆¥— ¡§ºˆ∞™¿∏∑Œ ±Ì¿Ã ¡ˆ¡§«œø© ±◊ ±Ì¿Ã∫Œ≈Õ «œ¿ß µ∑∫≈‰∏Æ ∞Àªˆ
+			//0 ÏïÑÎãå Ï†ïÏàòÍ∞íÏúºÎ°ú ÍπäÏù¥ ÏßÄÏ†ïÌïòÏó¨ Í∑∏ ÍπäÏù¥Î∂ÄÌÑ∞ ÌïòÏúÑ ÎîîÎ†âÌÜ†Î¶¨ Í≤ÄÏÉâ
 		}
 
 		if(mystrcmp(option, "-newer")==0){
@@ -267,7 +267,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//ø…º«2 or
 						perror("dir_err");
 						exit(1);
 					}
-					if(file.st_atime>((int)tt-(60*60*24*myatoi(option2)))&&file.st_atime<((int)tt-(60*60*24*(1+myatoi(option2))))){
+					if(file.st_atime<((int)tt-(60*60*24*myatoi(option2)))&&file.st_atime>((int)tt-(60*60*24*(1+myatoi(option2))))){
 						write(1, filepath, mystrlen(filepath));
 						write(1, "\n", 2);
 					}
@@ -280,7 +280,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//ø…º«2 or
 						perror("dir_err");
 						exit(1);
 					}
-					if(file.st_atime>((int)tt-(60*60*24*myatoi(option2)))&&file.st_atime<((int)tt-(60*60*24*(1+myatoi(option2))))){
+					if(file.st_atime<((int)tt-(60*60*24*myatoi(option2)))&&file.st_atime>((int)tt-(60*60*24*(1+myatoi(option2))))){
 						write(1, filepath, mystrlen(filepath));
 						write(1, "\n", 2);
 					}
@@ -350,7 +350,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//ø…º«2 or
 						perror("dir_err");
 						exit(1);
 					}
-					if(file.st_ctime>((int)tt-(60*60*24*myatoi(option2)))&&file.st_ctime<((int)tt-(60*60*24*(1+myatoi(option2))))){
+					if(file.st_ctime<((int)tt-(60*60*24*myatoi(option2)))&&file.st_ctime>((int)tt-(60*60*24*(1+myatoi(option2))))){
 						write(1, filepath, mystrlen(filepath));
 						write(1, "\n", 2);
 					}
@@ -363,7 +363,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//ø…º«2 or
 						perror("dir_err");
 						exit(1);
 					}
-					if(file.st_ctime>((int)tt-(60*60*24*myatoi(option2)))&&file.st_ctime<((int)tt-(60*60*24*(1+myatoi(option2))))){
+					if(file.st_ctime<((int)tt-(60*60*24*myatoi(option2)))&&file.st_ctime>((int)tt-(60*60*24*(1+myatoi(option2))))){
 						write(1, filepath, mystrlen(filepath));
 						write(1, "\n", 2);
 					}
@@ -433,7 +433,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//ø…º«2 or
 						perror("dir_err");
 						exit(1);
 					}
-					if(file.st_mtime>((int)tt-(60*60*24*myatoi(option2))&&file.st_mtime<((int)tt-(60*60*24*myatoi(option2))))){
+					if(file.st_mtime<((int)tt-(60*60*24*myatoi(option2))&&file.st_mtime>((int)tt-(60*60*24*myatoi(option2))))){
 						write(1, filepath, mystrlen(filepath));
 						write(1, "\n", 2);
 					}
@@ -446,7 +446,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//ø…º«2 or
 						perror("dir_err");
 						exit(1);
 					}
-					if(file.st_mtime>((int)tt-(60*60*24*myatoi(option2))&&file.st_mtime<((int)tt-(60*60*24*myatoi(option2))))){
+					if(file.st_mtime<((int)tt-(60*60*24*myatoi(option2))&&file.st_mtime>((int)tt-(60*60*24*myatoi(option2))))){
 						write(1, filepath, mystrlen(filepath));
 						write(1, "\n", 2);
 					}
