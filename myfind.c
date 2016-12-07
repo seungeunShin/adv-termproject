@@ -27,7 +27,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 	char filepath[255];
 	time_t tt;
 	struct group *grp;
-	char name[255];
+	char *name;
 	char filename[255];
 	uid_t uid, euid; 
 
@@ -64,7 +64,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 					write(1, filepath, mystrlen(filepath));
 					write(1, "\n", 2);
 					mystrcat(filepath, "/");
-					dir_list(filepath, option, option2);
+					dir_list(filepath, option, option2,option3);
 				}
 				else if(S_ISREG(buf.st_mode)){
 					write(1, filepath, mystrlen(filepath));
@@ -120,7 +120,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 				write(1, filepath, mystrlen(filepath));
 				write(1, "\n", 2);
 				mystrcat(filepath, "/");
-				dir_list(filepath, option, option2);
+				dir_list(filepath, option, option2,option3);
 			}
 			else if(S_ISREG(buf.st_mode)){
 				write(1, filepath, mystrlen(filepath));
@@ -456,7 +456,11 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 
 		if(mystrcmp(option,"-name")==0)
 		{
-				
+			if(mystrcmp(dent->d_name,option2)==0)
+			{
+				write(1,filepath,mystrlen(filepath));
+				write(1,"\n",2);
+			}
 		}
 		else if(mystrcmp(option,"-perm")==0)
 		{
@@ -480,7 +484,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 		}	
 		else if(mystrcmp(option,"-group")==0)
 		{
-			grp=getgrent(option2);
+			grp=getgrnam(option2);
 			mystrcpy(name,grp->gr_name);
 
 			if((dp=opendir(name))==NULL)
