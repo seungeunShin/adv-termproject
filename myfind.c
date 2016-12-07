@@ -55,19 +55,19 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 or
 				exit(1);
 			}
 			if(file.st_size==0){
-				if(S_ISDIR(buf.st_mode)){
+				/*if(S_ISDIR(buf.st_mode)){
 					write(1, filepath, mystrlen(filepath));
 					write(1, "\n", 2);
 					mystrcat(filepath, "/");
 					dir_list(filepath, option, option2);
-				}
+				}*/
 				else if(S_ISREG(buf.st_mode)){
 					write(1, filepath, mystrlen(filepath));
 					write(1, "\n", 2);
 				}
 			}
 		}
-
+/*
 		if(mystrcmp(option, "-size")==0){
 			dir_err=stat(option2, &file);
 			if(dir_err==-1){
@@ -93,7 +93,8 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 or
 			//b : 512바이트 블럭(기본 설정), c : 1바이트, k : KB, w : 2바이트 (워드)
 			//switch case?
 		}
-
+*/
+/*		
 		if(mystrcmp(option, "-type")==0){
 			dir_err=stat(option2, &file);
 			if(dir_err==-1){
@@ -104,7 +105,8 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 or
 			}
 			//지정된 타입의 파일 검색
 		}
-
+*/
+/*
 		if(mystrcmp(option2, "-print")==0 || mystrcmp(option3, "-print")==0){
 			dir_err=stat(option2, &file);
 			if(dir_err==-1){
@@ -123,7 +125,8 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 or
 			}
 			//검색 결과를 표준출력으로 출력
 		}
-
+*/
+/*
 		if(mystrcmp(option, "-maxdepth")==0){
 			dir_err=stat(option2, &file);
 			if(dir_err==-1){
@@ -132,7 +135,8 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 or
 			}
 			//0 아닌 정수값으로 깊이 지정하여 검색
 		}
-
+*/
+/*
 		if(mystrcmp(option, "-mindepth")==0){
 			dir_err=stat(option2, &file);
 			if(dir_err==-1){
@@ -141,7 +145,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 or
 			}
 			//0 아닌 정수값으로 깊이 지정하여 그 깊이부터 하위 디렉토리 검색
 		}
-
+*/
 		if(mystrcmp(option, "-newer")==0){
 			dir_err=stat(option2, &file);
 			if(dir_err==-1){
@@ -513,8 +517,11 @@ int mystrcmp(char* first, char* second){
 	int i=0, j=0;
 
 	while((first[i]!='\0')||(second[j]!='\0')){
-		if(first[i++]==second[j++]) result=0;
-		else result=1;
+		if(first[i]==second[j]) result=0;
+		else {
+			result=1;
+			break;
+		}
 	}
 
 	return result;
