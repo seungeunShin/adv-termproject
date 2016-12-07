@@ -400,7 +400,7 @@ int dir_list(char *path, char *option, char *option2){
 		}
 		else if(mystrcmp(option,"-perm")==0)
 		{
-				
+			buf.st_mode=myatoi(option2);				
 		}
 		else if(mystrcmp(option,"-user")==0)
 		{
