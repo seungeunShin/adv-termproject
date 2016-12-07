@@ -530,7 +530,7 @@ int mystrcmp(char* first, char* second){
 	int i=0, j=0;
 
 	while((first[i]!='\0')||(second[j]!='\0')){
-		if(first[i++]==second[j++]){
+		if(first[i]==second[j]){
 			i++;
 			j++;
 			result=0;
