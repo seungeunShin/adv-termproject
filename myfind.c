@@ -54,7 +54,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 		}
 
 		if(mystrcmp(option, "-empty")==0){
-			dir_err=stat(filepathtion2, &file);
+			dir_err=stat(filepath, &file);
 			if(dir_err==-1){
 				perror("dir_err");
 				exit(1);
@@ -458,7 +458,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 				}
 			}
 		}
-
+/*
 		if(mystrcmp(option,"-name")==0)
 		{
 			if(mystrcmp(dent->d_name,option2)==0)
@@ -503,7 +503,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 				mystrcpy(filename,dent->d_name);
 				write(1,filename,mystrlen(filename));
 			}
-		}
+		}*/
 	}while((dent=readdir(dp))!=NULL);
 
 	closedir(dp);
