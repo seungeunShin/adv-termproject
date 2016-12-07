@@ -4,7 +4,7 @@
 #include <dirent.h>
 #include <time.h>
 
-int dir_list(char*, char*, char*);
+int dir_list(char*, char*, char*, char*);
 char* mystrcpy(char*, char*);
 char* mystrcat(char*, char*);
 int mystrcmp(char*, char*);
@@ -68,7 +68,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 or
 			//지정된 타입의 파일 검색
 		}
 
-		if(mystrcmp(option, "-print")==0){
+		if(mystrcmp(option2, "-print")==0 || mystrcmp(option3, "-print")==0){
 			//검색 결과를 표준출력으로 출력
 			//option3 만들어서 option2 또는 option3에서 print 요구하면 이용 가능하게 해야하지 않나?
 			//ex) if(option2 == "-print" || option3 == "-print")
