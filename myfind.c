@@ -54,7 +54,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 		}
 
 		if(mystrcmp(option, "-empty")==0){
-			dir_err=stat(option2, &file);
+			dir_err=stat(filepathtion2, &file);
 			if(dir_err==-1){
 				perror("dir_err");
 				exit(1);
@@ -64,9 +64,6 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 					write(1, filepath, mystrlen(filepath));
 					write(1, "\n", 2);
 					mystrcat(filepath, "/");
-
-					dir_list(filepath, option, option2,option3);
-
 					dir_list(filepath, option, option2, option3);
 
 				}
@@ -76,7 +73,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 				}
 			}
 		}
-
+/*
 		if(mystrcmp(option, "-size")==0){
 			dir_err=stat(option2, &file);
 			if(dir_err==-1){
@@ -154,7 +151,7 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 			}
 			//0 아닌 정수값으로 깊이 지정하여 그 깊이부터 하위 디렉토리 검색
 		}
-
+*/
 		if(mystrcmp(option, "-newer")==0){
 			dir_err=stat(option2, &file);
 			if(dir_err==-1){
