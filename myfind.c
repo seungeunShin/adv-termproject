@@ -64,7 +64,11 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 					write(1, filepath, mystrlen(filepath));
 					write(1, "\n", 2);
 					mystrcat(filepath, "/");
+
 					dir_list(filepath, option, option2,option3);
+
+					dir_list(filepath, option, option2, option3);
+
 				}
 				else if(S_ISREG(buf.st_mode)){
 					write(1, filepath, mystrlen(filepath));
@@ -120,7 +124,11 @@ int dir_list(char *path, char *option, char *option2, char *option3){	//옵션2 
 				write(1, filepath, mystrlen(filepath));
 				write(1, "\n", 2);
 				mystrcat(filepath, "/");
+
 				dir_list(filepath, option, option2,option3);
+
+				dir_list(filepath, option, option2, option3);
+
 			}
 			else if(S_ISREG(buf.st_mode)){
 				write(1, filepath, mystrlen(filepath));
@@ -534,7 +542,7 @@ int mystrcmp(char* first, char* second){
 	int i=0, j=0;
 
 	while((first[i]!='\0')||(second[j]!='\0')){
-		if(first[i++]==second[j++]){
+		if(first[i]==second[j]){
 			i++;
 			j++;
 			result=0;
